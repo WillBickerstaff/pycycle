@@ -14,14 +14,17 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Label, Spinbox, E, Button, IntVar
+from Tkinter import Frame, Label, Spinbox, E, W, Button, IntVar
 
 
 class RingArrangement(Frame):
-    def __init__(self, rings=[], master=None):
+    def __init__(self, rings=[], title=None, master=None):
         Frame.__init__(self, master)
         self.rings = []
         self.addbut = Button(text='+', command=self.userAddRing)
+        self.title = Label(master=self)
+        if title is not None:
+            self.title.config(text=title)
         for ring in rings:
             self.addRing(ring)
         self.renderRings()
@@ -41,19 +44,19 @@ class RingArrangement(Frame):
         ring = RingEntry(len(self.rings), self)
         ring.val.set(val)
         self.rings.append(ring)
-        print self.vals()
         return ring
 
     def renderRing(self, ring):
         self.addbut.grid_forget()
         ring.render()
         ring.grid(in_=self)
-        rmbut = Button(master=self, text='-',
+        rmbut = Button(master=self, text='-', padx=3, pady=0,
                        command=lambda i=ring: self.removeRing(i))
         rmbut.grid(row=int(ring.grid_info()['row']), column=1, in_=self)
         self.showAddBut()
 
     def renderRings(self):
+        self.title.grid(row=0, columnspan=2, in_=self)
         for ring in self.rings:
             self.renderRing(ring)
         self.showAddBut()
@@ -61,11 +64,9 @@ class RingArrangement(Frame):
     def removeRing(self, ring):
         self.rings.pop(ring.pos())
         self.orderRings()
-        print self.children
         for widget in self.children:
             self.children[widget].grid_remove()
         self.renderRings()
-        print self.vals()
 
     def orderRings(self):
         for pos, ring in enumerate(self.rings):
@@ -77,13 +78,21 @@ class RingArrangement(Frame):
         return int(self.ringss[ring].val.get())
 
 
-class RingEntry(Frame):
-    def __init__(self, ringpos=0, master=None):
+class LabeledSpin(Frame):
+    def __init__(self, labeltext='', master=None):
         Frame.__init__(self, master)
         self.val = IntVar()
+        self.lbl = Label(text=labeltext)
+        self.lbl.grid(row=0, column=0, sticky=E, in_=self)
+        self.Spin = Spinbox(textvariable=self.val)
+        self.Spin.grid(row=0, column=1, sticky=W, in_=self)
+
+
+class RingEntry(LabeledSpin):
+    def __init__(self, ringpos=0, master=None):
+        LabeledSpin.__init__(self, master=master)
         self.__ringpos = ringpos
-        self.lbl = Label()
-        self.Spin = Spinbox(from_=10, to=60, width=2, textvariable=self.val)
+        self.Spin.config(from_=10, to=60, width=2)
         self.render()
 
     def pos(self, pos=-1):

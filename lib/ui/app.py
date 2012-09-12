@@ -35,6 +35,7 @@ class Application(Frame):
         self.wheel_input = Frame()
 
         self.create_cassette_input()
+        self.create_chainset_input()
 
         self.chainset_input.grid(row=1, column=1, sticky=N + W,
                                  in_=self.__input)
@@ -42,5 +43,10 @@ class Application(Frame):
                               in_=self.__input)
 
     def create_cassette_input(self):
-        self.cassette_rings = RingArrangement([12, 14, 16, 18, 21, 24, 28])
-        self.cassette_rings.grid(row=0, column=0)
+        self.cassette_rings = RingArrangement([12, 14, 16, 18, 21, 24, 28],
+                                              'Cassette')
+        self.cassette_rings.grid(row=0, column=0, sticky=N)
+
+    def create_chainset_input(self):
+        self.chainset_rings = RingArrangement([34, 50], 'Chainset')
+        self.chainset_rings.grid(row=0, column=1, sticky=N)
