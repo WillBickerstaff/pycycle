@@ -14,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Label, Spinbox, E, W, Button, IntVar
+from Tkinter import Frame, Label, E, Button
+from lib.ui.genericwidgets import LabeledSpin
 
 
 class RingArrangement(Frame):
@@ -33,7 +34,8 @@ class RingArrangement(Frame):
         self.addbut.grid(in_=self, columnspan=2)
 
     def userAddRing(self):
-        self.renderRing(self.addRing())
+        self.addRing()
+        self.renderRings()
 
     def addRing(self, val=None):
         if val is None:
@@ -50,9 +52,10 @@ class RingArrangement(Frame):
         self.addbut.grid_forget()
         ring.render()
         ring.grid(in_=self)
-        rmbut = Button(master=self, text='-', padx=3, pady=0,
-                       command=lambda i=ring: self.removeRing(i))
-        rmbut.grid(row=int(ring.grid_info()['row']), column=1, in_=self)
+        if len(self.rings) > 1:
+            rmbut = Button(master=self, text='-', padx=3, pady=0,
+                           command=lambda i=ring: self.removeRing(i))
+            rmbut.grid(row=int(ring.grid_info()['row']), column=1, in_=self)
         self.showAddBut()
 
     def renderRings(self):
@@ -62,6 +65,8 @@ class RingArrangement(Frame):
         self.showAddBut()
 
     def removeRing(self, ring):
+        if len(self.rings) == 1:
+            return
         self.rings.pop(ring.pos())
         self.orderRings()
         for widget in self.children:
@@ -76,16 +81,6 @@ class RingArrangement(Frame):
         if ring is None:
             return [int(x.val.get()) for x in self.rings]
         return int(self.ringss[ring].val.get())
-
-
-class LabeledSpin(Frame):
-    def __init__(self, labeltext='', master=None):
-        Frame.__init__(self, master)
-        self.val = IntVar()
-        self.lbl = Label(text=labeltext)
-        self.lbl.grid(row=0, column=0, sticky=E, in_=self)
-        self.Spin = Spinbox(textvariable=self.val)
-        self.Spin.grid(row=0, column=1, sticky=W, in_=self)
 
 
 class RingEntry(LabeledSpin):
