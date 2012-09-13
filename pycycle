@@ -19,5 +19,5 @@ from lib.ui.app import Application
 
 root = Tk()
 root.title("pyCycle")
-app = Application(root)
+app = Application(master=root)
 app.mainloop()

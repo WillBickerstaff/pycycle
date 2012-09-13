@@ -20,7 +20,8 @@ from lib.ui.ring import RingEntry, RingArrangement
 
 class Application(Frame):
 
-    def __init__(self, master=None):
+    def __init__(self, **kwargs):
+        master = None if 'master' not in kwargs else kwargs['master']
         Frame.__init__(self, master)
         self.__input = Frame()
         self.__results = Frame()
@@ -43,10 +44,10 @@ class Application(Frame):
                               in_=self.__input)
 
     def create_cassette_input(self):
-        self.cassette_rings = RingArrangement([12, 14, 16, 18, 21, 24, 28],
-                                              'Cassette')
+        self.cassette_rings = RingArrangement(
+                rings=[12, 14, 16, 18, 21, 24, 28], title='Cassette')
         self.cassette_rings.grid(row=0, column=0, sticky=N)
 
     def create_chainset_input(self):
-        self.chainset_rings = RingArrangement([34, 50], 'Chainset')
+        self.chainset_rings = RingArrangement(rings=[34, 50], title='Chainset')
         self.chainset_rings.grid(row=0, column=1, sticky=N)

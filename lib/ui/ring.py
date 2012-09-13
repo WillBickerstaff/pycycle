@@ -19,7 +19,11 @@ from lib.ui.genericwidgets import LabeledSpin
 
 
 class RingArrangement(Frame):
-    def __init__(self, rings=[], title=None, master=None):
+    def __init__(self, **kwargs):
+        master = None if 'master' not in kwargs else kwargs['master']
+        title = None if 'title' not in kwargs else kwargs['title']
+        rings = [] if 'rings' not in kwargs else kwargs['rings']
+
         Frame.__init__(self, master)
         self.rings = []
         self.addbut = Button(text='+', command=self.userAddRing)
@@ -43,7 +47,7 @@ class RingArrangement(Frame):
                 val = self.rings[-1].val.get()
             else:
                 val = 10
-        ring = RingEntry(len(self.rings), self)
+        ring = RingEntry(pos=len(self.rings), master=self)
         ring.val.set(val)
         self.rings.append(ring)
         return ring
@@ -84,9 +88,12 @@ class RingArrangement(Frame):
 
 
 class RingEntry(LabeledSpin):
-    def __init__(self, ringpos=0, master=None):
+    def __init__(self, **kwargs):
+        master = None if 'master' not in kwargs else kwargs['master']
+        pos = -1 if 'pos' not in kwargs else kwargs['pos']
+
         LabeledSpin.__init__(self, master=master)
-        self.__ringpos = ringpos
+        self.__ringpos = pos
         self.Spin.config(from_=10, to=60, width=2)
         self.render()
 

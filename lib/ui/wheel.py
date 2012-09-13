@@ -16,3 +16,9 @@
 # PyCycle. If not, see http://www.gnu.org/licenses/
 from Tkinter import Frame, Button, N, S, E, W, TOP
 from lib.ui.genericwidgets import LabeledSpin
+
+
+class WheelEntry(Frame):
+    def __init__(self, **kwargs):
+        master = None if 'master' not in kwargs else kwargs['master']
+        Frame.__init__(self, master)
