@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Button, N, S, E, W, TOP
-from lib.ui.ring import RingEntry, RingArrangement
+from Tkinter import Frame, N, S, E, W
+from lib.ui.ring import RingArrangement
+from lib.ui.wheel import WheelEntry
 
 
 class Application(Frame):
@@ -27,27 +28,30 @@ class Application(Frame):
         self.__results = Frame()
         self.input_fields()
 
-        self.__input.grid(row=0, column=0, sticky=W, in_=self)
+        self.__input.grid(row=0, column=0, sticky=W)
         self.__results.grid(row=0, column=0, sticky=W, in_=self)
 
     def input_fields(self):
         self.cassette_input = Frame()
-        self.chainset_input = Frame()
-        self.wheel_input = Frame()
+        self.chainset_input = Frame(borderwidth=1)
+        self.wheel_input = Frame(borderwidth=1)
 
         self.create_cassette_input()
         self.create_chainset_input()
-
-        self.chainset_input.grid(row=1, column=1, sticky=N + W,
-                                 in_=self.__input)
-        self.wheel_input.grid(row=0, column=0, columnspan=2,
-                              in_=self.__input)
+        self.create_wheel_input()
 
     def create_cassette_input(self):
         self.cassette_rings = RingArrangement(
                 rings=[12, 14, 16, 18, 21, 24, 28], title='Cassette')
-        self.cassette_rings.grid(row=0, column=0, sticky=N)
+        self.cassette_rings.grid(row=0, column=0, rowspan=2,
+                                 sticky=N + S + E + W, in_=self.__input)
 
     def create_chainset_input(self):
         self.chainset_rings = RingArrangement(rings=[34, 50], title='Chainset')
-        self.chainset_rings.grid(row=0, column=1, sticky=N)
+        self.chainset_rings.grid(row=0, column=1, sticky=N + S + E + W,
+                                 in_=self.__input)
+
+    def create_wheel_input(self):
+        self.wheel_input = WheelEntry()
+        self.wheel_input.grid(row=1, column=1, sticky=N + S + E + W,
+                              in_=self.__input)

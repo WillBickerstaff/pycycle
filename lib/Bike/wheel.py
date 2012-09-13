@@ -32,7 +32,7 @@ class wheel(object):
         self.speed = Unit(kmh)
 
     def _rolling_distance(self):
-        """ Return a float that represents the diameter of the wheel """
+        """ Return a float that represents the circumference of the wheel """
         return Unit(inch, self.rim_size.value * pi)
 
     def act_speed(self, rpm=60, pref_unit=kmh):

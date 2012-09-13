@@ -19,10 +19,12 @@ from Tkinter import Frame, Label, Spinbox, E, W, IntVar
 
 
 class LabeledSpin(Frame):
-    def __init__(self, labeltext='', master=None):
+    def __init__(self, **kwargs):
+        master = None if 'master' not in kwargs else kwargs['master']
+        title = '' if 'title' not in kwargs else kwargs['title']
         Frame.__init__(self, master)
         self.val = IntVar()
-        self.lbl = Label(text=labeltext)
+        self.lbl = Label(text=title)
         self.lbl.grid(row=0, column=0, sticky=E, in_=self)
         self.Spin = Spinbox(textvariable=self.val)
         self.Spin.grid(row=0, column=1, sticky=W, in_=self)

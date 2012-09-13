@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Label, E, Button
+from Tkinter import Frame, Label, E, Button, GROOVE
 from lib.ui.genericwidgets import LabeledSpin
 
 
@@ -25,6 +25,7 @@ class RingArrangement(Frame):
         rings = [] if 'rings' not in kwargs else kwargs['rings']
 
         Frame.__init__(self, master)
+        self.config(borderwidth=1, relief=GROOVE, padx=20, pady=5)
         self.rings = []
         self.addbut = Button(text='+', command=self.userAddRing)
         self.title = Label(master=self)
