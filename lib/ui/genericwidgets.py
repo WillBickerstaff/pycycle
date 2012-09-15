@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
 
-from Tkinter import Frame, Label, Spinbox, E, W, IntVar
+from Tkinter import Frame, Label, Spinbox, W, IntVar
 
 
 class LabeledSpin(Frame):
@@ -25,6 +25,6 @@ class LabeledSpin(Frame):
         Frame.__init__(self, master)
         self.val = IntVar()
         self.lbl = Label(text=title)
-        self.lbl.grid(row=0, column=0, sticky=E, in_=self)
+        self.lbl.grid(row=0, column=0, sticky=W, in_=self)
         self.Spin = Spinbox(textvariable=self.val)
         self.Spin.grid(row=0, column=1, sticky=W, in_=self)

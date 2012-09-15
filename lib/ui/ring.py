@@ -14,23 +14,19 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Label, E, Button, GROOVE
+from Tkinter import LabelFrame, E, Button
 from lib.ui.genericwidgets import LabeledSpin
 
 
-class RingArrangement(Frame):
+class RingArrangement(LabelFrame):
     def __init__(self, **kwargs):
         master = None if 'master' not in kwargs else kwargs['master']
         title = None if 'title' not in kwargs else kwargs['title']
         rings = [] if 'rings' not in kwargs else kwargs['rings']
-
-        Frame.__init__(self, master)
-        self.config(borderwidth=1, relief=GROOVE, padx=20, pady=5)
+        LabelFrame.__init__(self, master, text=title)
+        self.config(padx=20, pady=5)
         self.rings = []
         self.addbut = Button(text='+', command=self.userAddRing)
-        self.title = Label(master=self)
-        if title is not None:
-            self.title.config(text=title)
         for ring in rings:
             self.addRing(ring)
         self.renderRings()
@@ -45,7 +41,7 @@ class RingArrangement(Frame):
     def addRing(self, val=None):
         if val is None:
             if len(self.rings) > 0:
-                val = self.rings[-1].val.get()
+                val = self.rings[-1].val.get() + 2
             else:
                 val = 10
         ring = RingEntry(pos=len(self.rings), master=self)
@@ -64,7 +60,6 @@ class RingArrangement(Frame):
         self.showAddBut()
 
     def renderRings(self):
-        self.title.grid(row=0, columnspan=2, in_=self)
         for ring in self.rings:
             self.renderRing(ring)
         self.showAddBut()
@@ -84,8 +79,8 @@ class RingArrangement(Frame):
 
     def vals(self, ring=None):
         if ring is None:
-            return [int(x.val.get()) for x in self.rings]
-        return int(self.ringss[ring].val.get())
+            return tuple([int(x.Spin.get()) for x in self.rings])
+        return int(self.rings[ring].Spin.get())
 
 
 class RingEntry(LabeledSpin):

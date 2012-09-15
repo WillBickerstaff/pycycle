@@ -14,22 +14,20 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Label, GROOVE, OptionMenu, StringVar
+from Tkinter import LabelFrame, OptionMenu, StringVar
 from lib.ui.genericwidgets import LabeledSpin
-from lib.Units.distance_units import mm, cm, inch
+import lib.Units.distance_units as dist
 
 
-class WheelEntry(Frame):
+class WheelEntry(LabelFrame):
+    DIA_UNITS = [dist.mm, dist.cm, dist.inch]
+
     def __init__(self, **kwargs):
         master = None if 'master' not in kwargs else kwargs['master']
-        Frame.__init__(self, master)
-        self.config(borderwidth=1, relief=GROOVE, padx=20, pady=5)
-        self.title = Label(text='Wheel', master=self)
-        self.title.grid(row=0, column=0, columnspan=2, in_=self)
-        self.units = []
-        self.__val = mm
-        for unit in [mm, cm, inch]:
-            self.add_unit(unit)
+        LabelFrame.__init__(self, master, text='Wheel')
+        self.unitopts = ['%s (%s)' % (x.name, x.symbol)
+                         for x in WheelEntry.DIA_UNITS]
+        self.__val = WheelEntry.DIA_UNITS[0]
         self.createSpin()
         self.create_unit_opts()
 
@@ -45,10 +43,10 @@ class WheelEntry(Frame):
             self.__val.value = val
         else:
             sel = self.unitoptselected.get().split()[0]
-            for u in self.units:
+            for u in WheelEntry.DIA_UNITS:
                 if sel in u.name:
                     self.__val = u
-                    self.__val.value = self.Spin.val.get()
+                    self.__val.value = int(self.Spin.val.get())
         return self.__val
 
     def createSpin(self):
@@ -56,7 +54,3 @@ class WheelEntry(Frame):
         self.Spin.val.set(27)
         self.Spin.Spin.config(from_=10, to=1000, width=4)
         self.Spin.grid(row=1, column=0, in_=self)
-
-    def add_unit(self, unit):
-        self.units.append(unit)
-        self.unitopts = ['%s (%s)' % (x.name, x.symbol) for x in self.units]

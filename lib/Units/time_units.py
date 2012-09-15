@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/.
 
-from Units import Unit, UnitGroup, UnitDefinition
+from lib.Units import Unit, UnitGroup, UnitDefinition
 import re
 
 
