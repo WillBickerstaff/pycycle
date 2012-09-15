@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/.
 
-from gearing import gear_assembly, wheel
-from Units.distance_units import inch
-from Units import Unit
+from lib.Bike.gearing import gear_assembly, wheel
+from lib.Units.distance_units import inch
+from lib.Units import Unit
 
 
 class bike(object):

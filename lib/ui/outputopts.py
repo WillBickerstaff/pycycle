@@ -57,11 +57,10 @@ class VelocitySelect(Frame):
         if val is not None:
             self.vel.value = val
         else:
-            sel = self.unitoptselected.get().split()[0]
+            sel = self.vel_selected.get().split()[0]
             for v in VelocitySelect.VELOCITIES:
                 if sel in v.name:
                     self.vel = v
-                    self.vel.value = int(self.Spin.get())
         return self.vel
 
 

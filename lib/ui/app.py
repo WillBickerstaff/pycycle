@@ -18,6 +18,8 @@ from Tkinter import Frame, Button, N, S, E, W
 from lib.ui.ring import RingArrangement
 from lib.ui.wheel import WheelEntry
 from lib.ui.outputopts import OutOptions
+from lib.Bike import bike
+from lib.ui.output import OutputPane
 
 
 class Application(Frame):
@@ -26,9 +28,9 @@ class Application(Frame):
         master = None if 'master' not in kwargs else kwargs['master']
         Frame.__init__(self, master)
         self.__input = Frame(padx=10, pady=10)
+        self.__output = Frame(padx=10, pady=10)
         self.__results = Frame()
         self.input_fields()
-
         self.__input.grid(row=0, column=0, sticky=W)
         self.__results.grid(row=0, column=1, sticky=W, in_=self)
 
@@ -68,4 +70,17 @@ class Application(Frame):
                                                          in_=self.__input)
 
     def calc(self):
-        pass
+        cycle = bike()
+        cycle.wheel_size(self.wheel_input.val())
+        for w in self.__output.children:
+            self.__output.children[w].grid_remove()
+        for ring in self.cassette_rings.vals():
+            cycle.gearing.add_rear_ring(ring)
+        for ring in self.chainset_rings.vals():
+            cycle.gearing.add_front_ring(ring)
+        data = cycle.gearing.result_set(self.output_opts.cadenceVals(),
+                                        self.output_opts.speedUnits())
+        op = OutputPane(master=self.__output, data=data,
+                        velsym=self.output_opts.speedUnits().symbol)
+        op.grid(in_=self.__output, row=0, column=0)
+        self.__output.grid(row=0, column=1, sticky=N + S + E + W)
