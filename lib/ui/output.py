@@ -40,7 +40,7 @@ class OutputPane(Frame):
         self.res_text('[%d] %dt' % (data['rear'][0], data['rear'][1]),
                                     row, 2)
         self.res_text('%d' % data['gear inch'], row, 3)
-        col = 5
+        col = 4
         for vel in sorted(self.data[0]['speeds']):
             self.res_text('%.2f' % data['speeds'][vel], row, col)
             col += 1
@@ -55,9 +55,9 @@ class OutputPane(Frame):
         self.header_text('Chainset', col=1, rowspan=2)
         self.header_text('Cassette', col=2, rowspan=2)
         self.header_text('Gear\nInches', col=3, rowspan=2)
-        self.header_text('Velocity (%s)@ Cadence' % velsym, col=4, row=0,
-                         colspan=len(self.data[0]['speeds']) + 1)
-        col = 5
+        self.header_text('Velocity (%s) @ Cadence' % velsym, col=4, row=0,
+                         colspan=len(self.data[0]['speeds']))
+        col = 4
         for cadence in sorted(self.data[0]['speeds']):
             self.header_text(cadence, col=col, row=1)
             col += 1

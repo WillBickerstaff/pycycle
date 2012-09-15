@@ -47,7 +47,7 @@ class Application(Frame):
 
     def create_cassette_input(self):
         self.cassette_rings = RingArrangement(
-                rings=[12, 14, 16, 18, 21, 24, 28], title='Cassette')
+                rings=[28, 24, 21, 18, 16, 14, 12], title='Cassette')
         self.cassette_rings.grid(row=0, column=0, rowspan=2,
                                  sticky=N + S + E + W, in_=self.__input)
 
