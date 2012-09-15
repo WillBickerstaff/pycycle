@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/.
 
-from Units import UnitGroup, UnitDefinition
+from lib.Units import UnitGroup, UnitDefinition
 
 
 class MassUnitGroup(UnitGroup):

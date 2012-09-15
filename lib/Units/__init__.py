@@ -27,7 +27,6 @@ class UnitGroup(object):
 
     def get_unit(self, required_unit):
         """ Return a unit object where the name or symbol matches
-
             Keyword Arguments:
             required_unit -- A string that represents the name or symbol of
                              the unit we are looking for

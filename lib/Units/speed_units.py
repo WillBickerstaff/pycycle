@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/.
 
-from Units import UnitGroup, UnitDefinition
+from lib.Units import UnitGroup, UnitDefinition
 
 
 class SpeedUnitGroup(UnitGroup):
@@ -34,7 +34,7 @@ SpeedUnits = SpeedUnitGroup()
 
 ms = SpeedUnits.get_unit('ms')
 kmh = SpeedUnits.get_unit('kmh')
-mih = SpeedUnits.get_unit('mph')
+mih = SpeedUnits.get_unit('mih')
 knot = SpeedUnits.get_unit('kn')
 mach = SpeedUnits.get_unit('Mach')
 base_unit = SpeedUnits.base_unit()

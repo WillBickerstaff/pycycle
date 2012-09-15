@@ -17,9 +17,9 @@
 
 import string
 
-from wheel import wheel
-from Units.speed_units import kmh
-from Units import Unit
+from lib.Bike.wheel import wheel
+from lib.Units.speed_units import kmh
+from lib.Units import Unit
 
 
 class gear_ring(object):
@@ -551,6 +551,25 @@ class gear_assembly(object):
             if len(line) > max_length:
                 max_length = len(line)
         return max_length
+
+    def result_set(self, cadences, pref_speed=kmh):
+        res = []
+        gear = 0
+        for i, front_ring in enumerate(self.front_rings.rings):
+            for k, rear_ring in enumerate(self.rear_rings.rings):
+                res.append({})
+                speeds = {}
+                for cadence in cadences:
+                    speed = self.speed(front_ring, rear_ring, cadence,
+                                       pref_speed)
+                    speeds[cadence] = speed.value
+                res[gear]['speeds'] = speeds
+                res[gear]['front'] = tuple([i + 1, front_ring.teeth])
+                res[gear]['rear'] = tuple([k + 1, rear_ring.teeth])
+                gear_inch = int(self.gear_inch(front_ring, rear_ring))
+                res[gear]['gear inch'] = gear_inch
+                gear += 1
+        return res
 
     def __table_data(self, cadences, pref_speed=kmh):
         data_string = []

@@ -17,11 +17,11 @@
 
 from math import pi
 
-from Units import Unit
-from Units.distance_units import inch
-from Units.speed_units import kmh
-from Units.time_units import minute
-from Calc.std_calc import std
+from lib.Units import Unit
+from lib.Units.distance_units import inch
+from lib.Units.speed_units import kmh
+from lib.Units.time_units import minute
+from lib.Calc.std_calc import std
 
 
 class wheel(object):
@@ -32,7 +32,7 @@ class wheel(object):
         self.speed = Unit(kmh)
 
     def _rolling_distance(self):
-        """ Return a float that represents the diameter of the wheel """
+        """ Return a float that represents the circumference of the wheel """
         return Unit(inch, self.rim_size.value * pi)
 
     def act_speed(self, rpm=60, pref_unit=kmh):
