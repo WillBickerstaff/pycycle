@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/.
 
-from Units.distance_units import base_unit as dist_base
-from Units.speed_units import base_unit as speed_base
-from Units.time_units import base_unit as time_base
-from Units import Unit
+from lib.Units.distance_units import base_unit as dist_base
+from lib.Units.speed_units import base_unit as speed_base
+from lib.Units.time_units import base_unit as time_base
+from lib.Units import Unit
 
 
 class CalcError(Exception):
