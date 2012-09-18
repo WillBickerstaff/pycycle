@@ -14,12 +14,13 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # PyCycle. If not, see http://www.gnu.org/licenses/
-from Tkinter import Frame, Button, N, S, E, W
+from Tkinter import Frame, Button, Menu, N, S, E, W
 from lib.ui.ring import RingArrangement
 from lib.ui.wheel import WheelEntry
 from lib.ui.outputopts import OutOptions
 from lib.Bike import bike
 from lib.ui.output import OutputPane
+from lib.ui.about import AboutDialog
 
 
 class Application(Frame):
@@ -31,6 +32,9 @@ class Application(Frame):
         self.__output = Frame(padx=10, pady=10)
         self.__results = Frame()
         self.input_fields()
+        self.menubar = Menu()
+        self.menubar.add_command(label='About', command=self.__about)
+        master.config(menu=self.menubar)
         self.__input.grid(row=0, column=0, sticky=W)
         self.__results.grid(row=0, column=1, sticky=W, in_=self)
 
@@ -44,6 +48,9 @@ class Application(Frame):
         self.create_chainset_input()
         self.create_wheel_input()
         self.create_output_opts()
+
+    def __about(self):
+        AboutDialog(self)
 
     def create_cassette_input(self):
         self.cassette_rings = RingArrangement(
