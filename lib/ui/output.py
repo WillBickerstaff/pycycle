@@ -39,7 +39,7 @@ class OutputPane(Frame):
                                     row, 1)
         self.res_text('[%d] %dt' % (data['rear'][0], data['rear'][1]),
                                     row, 2)
-        self.res_text('%d' % data['gear inch'], row, 3)
+        self.res_text('%.2f' % data['gear inch'], row, 3)
         col = 4
         for vel in sorted(self.data[0]['speeds']):
             self.res_text('%.2f' % data['speeds'][vel], row, col)

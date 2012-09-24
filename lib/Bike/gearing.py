@@ -566,7 +566,7 @@ class gear_assembly(object):
                 res[gear]['speeds'] = speeds
                 res[gear]['front'] = tuple([i + 1, front_ring.teeth])
                 res[gear]['rear'] = tuple([k + 1, rear_ring.teeth])
-                gear_inch = int(self.gear_inch(front_ring, rear_ring))
+                gear_inch = self.gear_inch(front_ring, rear_ring)
                 res[gear]['gear inch'] = gear_inch
                 gear += 1
         return res
